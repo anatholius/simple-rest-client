@@ -9,7 +9,7 @@ use JetBrains\PhpStorm\ArrayShape;
  *
  * @author Anatol Derbisz <anatholius@gmail.com>
  */
-class Response
+class Response implements ResponseInterface
 {
     private bool $success = false;
     private ?array $data = null;

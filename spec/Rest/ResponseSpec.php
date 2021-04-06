@@ -3,6 +3,7 @@
 namespace spec\App\Rest;
 
 use App\Rest\Response;
+use App\Rest\ResponseInterface;
 use PhpSpec\ObjectBehavior;
 
 class ResponseSpec extends ObjectBehavior
@@ -11,6 +12,7 @@ class ResponseSpec extends ObjectBehavior
     {
         $this->beConstructedWith(["curl" => "result"], ['curl' => 'info']);
         $this->shouldHaveType(Response::class);
+        $this->shouldImplement(ResponseInterface::class);
     }
 
     function it_should_allow_to_get_default_result_with_default_values()
