@@ -15,14 +15,14 @@ class Client
         $this->setTransport($transportName);
     }
 
-    public function get(string $url): array
+    public function get(string $url): Response
     {
         $this->checkConfiguration();
 
         return $this->transport->get($url);
     }
 
-    public function post(string $url, array $params): array
+    public function post(string $url, array $params): Response
     {
         $this->checkConfiguration();
 

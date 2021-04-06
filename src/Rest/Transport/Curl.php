@@ -2,6 +2,7 @@
 
 namespace App\Rest\Transport;
 
+use App\Rest\Response;
 use App\SimpleDotEnv;
 use JetBrains\PhpStorm\Pure;
 
@@ -28,21 +29,21 @@ class Curl implements TransportInterface
         $this->auth['password'] = 'password';
     }
 
-    public function get(string $url): array
+    public function get(string $url): Response
     {
         $this->prepare($url);
 
         return $this->curlItWith('GET');
     }
 
-    public function post(string $url, ?array $data = []): array
+    public function post(string $url, ?array $data = []): Response
     {
         $this->prepare($url, $data);
 
         return $this->curlItWith('POST');
     }
 
-    private function curlItWith(string $method): array
+    private function curlItWith(string $method): Response
     {
         $ch = curl_init($this->uri);
         curl_setopt($ch, CURLOPT_URL, $this->uri);
@@ -66,9 +67,22 @@ class Curl implements TransportInterface
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
         $response = curl_exec($ch);
+        $info = curl_getinfo($ch);
+
         curl_close($ch);
 
-        return $this->parseResponse($response);
+        return $this->parseResponse($response, $info);
+    }
+
+    private function parseResponse(bool|string $response, array $info): Response
+    {
+        if(isset($this->headers['Accept']) && $this->headers['Accept'] === 'application/json') {
+            $result = new Response(json_decode($response, true), $info);
+        } else {
+            $result = new Response($response, $info) ?? [];
+        }
+
+        return $result;
     }
 
     #[Pure]
@@ -130,16 +144,5 @@ class Curl implements TransportInterface
         if($data !== null) {
             $this->data = $data;
         }
-    }
-
-    private function parseResponse(bool|string $response)
-    {
-        if(isset($this->headers['Accept']) && $this->headers['Accept'] === 'application/json') {
-            $result = json_decode($response, true) ?? [];
-        } else {
-            $result = $response;
-        }
-
-        return $result;
     }
 }
