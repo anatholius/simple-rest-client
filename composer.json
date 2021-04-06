@@ -1,0 +1,14 @@
+{
+    "name": "example/simple-rest-client",
+    "description": "Example repository to create simple REST client (GET, POST) using phpspec.",
+    "license": "proprietary",
+    "type": "examplte",
+    "authors": [
+        {
+            "name": "Anatol Derbisz",
+            "email": "anatholius@gmail.com"
+        }
+    ],
+    "require": {},
+    "minimum-stability": "stable"
+}
