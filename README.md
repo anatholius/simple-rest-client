@@ -17,7 +17,37 @@ describing their behavior and then `phpspec` will assist me in creating them.
 The developed specifications will also fulfill the function of unit tests. After
 design is complete, the specifications to be executed will be `PHPUnit` tests.
 
+---
+
+**Now `simple-rest-client` is designed, and can be used to educational goals.**
+
+These are mainly the steps of designing a class structure based on
+the `spec-BDD` principle. Also, I used here `RDD` (Readme Driven Design)
+methodology to direct the work on the basis of: _"Before you start doing
+something, write down what you want to do"_.
+
+## Prerequisites
+
+What things you need to install the software and how to install them?
+
+You need to have `composer` installed, of course  `PHP`, and that's all. After
+that all you need to install `phpspec`, but what you will learn next follow the
+commits 😉.
+
+## Resources
+
+There it is.
+
+```shell
+git clone https://github.com/anatholius/simple-rest-client.git
+```
+
 ## State
+
+> After the main work is completed, and the last major step of this `wishlist`
+> is released, the `State` section is moved to the bottom of this document.
+>
+> Further, work may change its content, but it is no longer a priority.
 
 Steps to reach the guidelines and the status of their implementation:
 
@@ -37,10 +67,10 @@ Steps to reach the guidelines and the status of their implementation:
 - [x] (Release `step_3`) Testing client
     - [x] Design `ApiController`
     - [x] Tests with success and failed responses
-- [ ] Complete the documentation:
-    - [ ] `README` file
-    - [ ] (optional) `docs` folder
-- [ ] Tests before publishing
+- [x] Complete the documentation:
+    - [x] `README` file
+    - ❌ (optional) `docs` folder
+- [x] Tests before publishing
 
 Additionally:
 
@@ -54,19 +84,3 @@ Additionally:
         - [ ] `type`
     - [ ] Modify the `RestClient` structure to allow the selection of the
       transport pattern
-
-## Prerequisites
-
-What things you need to install the software and how to install them?
-
-`TODO`
-
-```
-//example
-```
-
-## Resources
-
-```shell
-git clone https://github.com/anatholius/simple-rest-client.git
-```
