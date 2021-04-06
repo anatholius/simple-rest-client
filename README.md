@@ -22,7 +22,7 @@ design is complete, the specifications to be executed will be `PHPUnit` tests.
 **Now `simple-rest-client` is designed, and can be used to educational goals.**
 
 These are mainly the steps of designing a class structure based on
-the `spec-BDD` principle. Also, I used here `RDD` (Readme Driven Design)
+the `spec-BDD` principle. Also, I used here `RDD` (Readme Driven Development)
 methodology to direct the work on the basis of: _"Before you start doing
 something, write down what you want to do"_.
 
