@@ -10,7 +10,11 @@ class Response
     private ?array $data = null;
     private ?array $error = null;
 
-    #[ArrayShape(['success' => "mixed", 'data' => "mixed", 'error' => "mixed"])]
+    public function __construct(bool|string $response, array $info)
+    {
+        // TODO: let's process the response here
+    }
+
     public function getResult(): array
     {
         return [

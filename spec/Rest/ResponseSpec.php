@@ -7,6 +7,10 @@ use PhpSpec\ObjectBehavior;
 
 class ResponseSpec extends ObjectBehavior
 {
+    function let(){
+        $this->beConstructedWith('{"curl":"result"}', ['curl' => 'info']);
+    }
+
     function it_is_initializable()
     {
         $this->shouldHaveType(Response::class);
