@@ -38,8 +38,7 @@ class Curl implements TransportInterface
     {
         $this->checkConfiguration();
 
-        $uri = sprintf('%s%s', $this->server['baseUrl'], $url);
-        // TODO: $uri = $this->buildUri($url);
+        $uri = $this->buildUri($url);
 
         $ch = curl_init($uri);
         curl_setopt($ch, CURLOPT_URL, $uri);
@@ -75,7 +74,7 @@ class Curl implements TransportInterface
 
     private function curlIt(string $url): bool|string
     {
-        $uri = sprintf('%s%s', $this->server['baseUrl'], $url);
+        $uri = $this->buildUri($url);
 
         $ch = curl_init($uri);
         curl_setopt($ch, CURLOPT_URL, $uri);
@@ -123,5 +122,11 @@ class Curl implements TransportInterface
             var_dump($exception);
             die();
         }
+    }
+
+    #[Pure]
+    private function buildUri(string $url): string
+    {
+        return sprintf('%s%s', $this->server['baseUrl'], $url);
     }
 }
