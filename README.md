@@ -26,7 +26,7 @@ Steps to reach the guidelines and the status of their implementation:
     - [x] Install dependencies
     - [x] Configure environment
 - [ ] (Release `step_2`) Designing a `RestClient` structure using `phpspec`
-    - [ ] Design the `DotEnv`
+    - [x] Design the `DotEnv`
     - [ ] Design the `Transport/Curl`
     - [ ] Design the `Response` structure
         - [ ] `success`
