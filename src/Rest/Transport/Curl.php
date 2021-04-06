@@ -55,15 +55,15 @@ class Curl implements TransportInterface
         }
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $this->headers = [
-            'Content-Type' => 'application/json',
-        ];
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
+        $headers = $this->buildHeaders();
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
         if($method === 'POST') {
             //only POST
             $this->data = $data;
-            $data = json_encode($this->data);
+
+            $data = $this->buildData();
+
             curl_setopt($ch, CURLOPT_POSTFIELDS, $this->data);
         }
 
@@ -112,9 +112,27 @@ class Curl implements TransportInterface
         }
     }
 
-    #[Pure]
     private function buildUri(string $url): string
     {
+        if(!isset($this->server['baseUrl'])) {
+            throw new \RuntimeException('Server is not configured!');
+        }
+
         return sprintf('%s%s', $this->server['baseUrl'], $url);
+    }
+
+    private function buildHeaders(): array
+    {
+        $headers = [];
+        foreach($this->headers as $name => $value) {
+            $headers[] = sprintf('%s: %s', $name, $value);
+        }
+
+        return $headers;
+    }
+
+    private function buildData(): string
+    {
+        return json_encode($this->data);
     }
 }
