@@ -25,8 +25,8 @@ class Curl implements TransportInterface
             'baseUrl' => SimpleDotEnv::getVar('BASE_URL'),
         ];
 
-        $this->auth['username'] = 'username';
-        $this->auth['password'] = 'password';
+        $this->auth['username'] = SimpleDotEnv::getVar('USERNAME');
+        $this->auth['password'] = SimpleDotEnv::getVar('PASSWORD');
     }
 
     public function get(string $url): Response
