@@ -4,7 +4,6 @@ namespace App\Rest\Transport;
 
 use App\Rest\Response;
 use App\SimpleDotEnv;
-use JetBrains\PhpStorm\Pure;
 
 /**
  * @property string[] server
@@ -74,7 +73,13 @@ class Curl implements TransportInterface
         return $this->parseResponse($response, $info);
     }
 
-    private function parseResponse(bool|string $response, array $info): Response
+    /**
+     * @param bool|string $response
+     * @param array       $info
+     *
+     * @return Response
+     */
+    private function parseResponse($response, array $info): Response
     {
         if(isset($this->headers['Accept']) && $this->headers['Accept'] === 'application/json') {
             $result = new Response(json_decode($response, true), $info);
@@ -85,7 +90,6 @@ class Curl implements TransportInterface
         return $result;
     }
 
-    #[Pure]
     public function isConfigured(): bool
     {
         return property_exists($this, 'server')

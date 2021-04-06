@@ -40,11 +40,13 @@ class Client
 
         // try..catch is for avoiding annoying underlines in PhpStorm
         try {
-            // `PHP 8` semantics for catch in `7.4`
-            $this->transport = match ($transportName) {
-                'curl' => new Curl(),
-                default => throw new \Exception('Unknown transport type')
-            };
+            switch($transportName) {
+                case 'curl':
+                    $this->transport = new Curl();
+                    break;
+                default:
+                    throw new \Exception('Unknown transport type');
+            }
         } catch(\Exception $exception) {
             dd($exception);
         }

@@ -5,12 +5,10 @@ namespace spec\App\Controller;
 use App\Controller\ApiController;
 use App\Rest\Response;
 use App\Rest\ResponseInterface;
-use JetBrains\PhpStorm\ArrayShape;
 use PhpSpec\ObjectBehavior;
 
 class ApiControllerSpec extends ObjectBehavior
 {
-    #[ArrayShape(['beSuccess' => "\Closure"])]
     public function getMatchers(): array
     {
         return [
