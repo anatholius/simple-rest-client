@@ -13,8 +13,13 @@ class ApiControllerSpec extends ObjectBehavior
         $this->shouldHaveType(ApiController::class);
     }
 
-    function it_should_GetAll()
+    function it_should_allow_to_GetAll()
     {
         $this->getAll()->shouldReturnAnInstanceOf(Response::class);
+    }
+
+    function it_should_allow_to_CreateOne()
+    {
+        $this->createOne()->shouldReturnAnInstanceOf(Response::class);
     }
 }
