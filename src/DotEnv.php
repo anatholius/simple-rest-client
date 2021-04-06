@@ -11,7 +11,7 @@ class DotEnv
         if(!file_exists(self::DOTENV_PATH) && !$ignoreMissingDotenv) {
             throw new \RuntimeException('There is no ".env" file!');
         } elseif(!file_exists(self::DOTENV_PATH) && $ignoreMissingDotenv) {
-            return false;
+            return [];
         }
 
         $lines = file(self::DOTENV_PATH, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
