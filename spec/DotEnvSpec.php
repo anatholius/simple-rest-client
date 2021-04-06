@@ -11,6 +11,7 @@ class DotEnvSpec extends ObjectBehavior
     {
         $this->shouldHaveType(DotEnv::class);
         $this->shouldNotThrow(\RuntimeException::class)->duringGetVars(true);
+        $this->shouldThrow(\ArgumentCountError::class)->duringGetVar();
         $this->getVars(true)->shouldBeArray();
     }
 }

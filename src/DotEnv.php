@@ -23,4 +23,14 @@ class DotEnv
 
         return $vars;
     }
+
+    public static function getVar(string $varName): ?string
+    {
+        $vars = self::getVars();
+        if(!isset($vars[$varName])) {
+            return null;
+        }
+
+        return $vars[$varName];
+    }
 }
