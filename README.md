@@ -25,13 +25,15 @@ Steps to reach the guidelines and the status of their implementation:
     - [x] Write `README` to describe current situation
     - [x] Install dependencies
     - [x] Configure environment
-- [ ] (Release `step_2`) Designing a `RestClient` structure using `phpspec`
-    - [ ] Design the `DotEnv`
-    - [ ] Design the `Transport/Curl`
-    - [ ] Design the `Response` structure
-        - [ ] `success`
-        - [ ] `data`
-        - [ ] `error`
+- [x] (Release `step_2`) Designing a `RestClient` structure using `phpspec`
+    - [x] Design the `DotEnv`
+    - [x] Design the `Transport/Curl`
+    - [x] Design the `Client`
+    - [x] Design the `Response` structure
+        - [x] `success`
+        - [x] `data`
+        - [x] `error`
+        - [x] Use it in transport
 - [ ] (Release `step_3`) Testing client
     - [ ] Design `ApiController`
     - [ ] Design the `Request`

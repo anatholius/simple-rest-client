@@ -10,8 +10,13 @@
         }
     ],
     "minimum-stability": "stable",
+    "require": {
+        "php": ">=8.0",
+        "ext-curl": "*"
+    },
     "require-dev": {
-        "phpspec/phpspec": "^7.0"
+        "phpspec/phpspec": "^7.0",
+        "symfony/var-dumper": "^5.2"
     },
     "autoload": {
         "psr-4": {
