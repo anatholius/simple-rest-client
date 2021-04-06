@@ -16,15 +16,11 @@ class Client
 
     public function get(string $url): array
     {
-        $this->checkConfiguration();
-
         return $this->transport->get($url);
     }
 
     public function post(string $url, array $params): array
     {
-        $this->checkConfiguration();
-
         return $this->transport->post($url, $params);
     }
 
@@ -42,23 +38,6 @@ class Client
                 'curl' => new Curl(),
                 default => throw new \Exception('Unknown transport type')
             };
-        } catch(\Exception $exception) {
-            var_dump($exception);
-            die();
-        }
-    }
-
-    private function checkConfiguration(): void
-    {
-        // try..catch is for avoiding annoying underlines in PhpStorm
-        try {
-            // checking if we can send request using defined transport
-            if($this->transport->isConfigured()) {
-                $this->transport->get('/api/real-endpoint');
-                //if there is no exceptions -> everything is okay 🙂
-            } else {
-                throw new \Exception('Server is not configured');
-            }
         } catch(\Exception $exception) {
             var_dump($exception);
             die();

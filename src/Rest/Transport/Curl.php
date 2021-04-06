@@ -27,6 +27,8 @@ class Curl implements TransportInterface
 
     public function get(string $url): array
     {
+        $this->checkConfiguration();
+
         $uri = sprintf('%s%s', self::BASE_URL, $url);
 
         $ch = curl_init($uri);
@@ -44,6 +46,8 @@ class Curl implements TransportInterface
 
     public function post(string $url, ?array $data = []): array
     {
+        $this->checkConfiguration();
+
         $uri = sprintf('%s%s', self::BASE_URL, $url);
 
         $ch = curl_init($uri);
@@ -89,5 +93,22 @@ class Curl implements TransportInterface
             && $this->auth['username'] !== null
             && isset($this->auth['password'])
             && $this->auth['password'] !== null;
+    }
+
+    private function checkConfiguration(): void
+    {
+        // try..catch is for avoiding annoying underlines in PhpStorm
+        try {
+            // checking if we can send request using defined transport
+            if($this->isConfigured()) {
+                $this->get('/api/real-endpoint');
+                //if there is no exceptions -> everything is okay 🙂
+            } else {
+                throw new \Exception('Server is not configured');
+            }
+        } catch(\Exception $exception) {
+            var_dump($exception);
+            die();
+        }
     }
 }
