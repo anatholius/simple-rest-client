@@ -11,7 +11,7 @@ class ApiController
 {
     public function getAll(): ResponseInterface
     {
-        $transportName = 'curl';
+        $transportName = SimpleDotEnv::getVar('TRANSPORT_NAME');
         $client = new Client();
         $client->setTransport($transportName);
 
@@ -29,7 +29,7 @@ class ApiController
 
     public function createOne(?array $postData = []): ResponseInterface
     {
-        $transportName = 'curl';
+        $transportName = SimpleDotEnv::getVar('TRANSPORT_NAME');
         $client = new Client();
         $client->setTransport($transportName);
 
