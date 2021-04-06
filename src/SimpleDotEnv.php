@@ -2,7 +2,7 @@
 
 namespace App;
 
-class DotEnv
+class SimpleDotEnv
 {
     const DOTENV_PATH = __DIR__.'/../.env';
 

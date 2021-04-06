@@ -2,11 +2,11 @@
 
 namespace spec\App;
 
-use App\DotEnv;
+use App\SimpleDotEnv;
 use PhpSpec\Exception\Example\ErrorException;
 use PhpSpec\ObjectBehavior;
 
-class DotEnvSpec extends ObjectBehavior
+class SimpleDotEnvSpec extends ObjectBehavior
 {
     function let()
     {
@@ -18,7 +18,7 @@ class DotEnvSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType(DotEnv::class);
+        $this->shouldHaveType(SimpleDotEnv::class);
     }
 
     function it_should_allow_to_getVars()
