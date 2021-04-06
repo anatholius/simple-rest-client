@@ -52,11 +52,16 @@ class Client
 
     private function checkConfiguration()
     {
-        $curl = new Curl();
-        if($curl->isConfigured()) {
-            $curl->get(SimpleDotEnv::getVar('GET_ALL_URL'));
-        } else {
-            throw new \Exception('Server is not configured');
+        // try..catch is for avoiding annoying underlines in PhpStorm
+        try {
+            $curl = new Curl();
+            if($curl->isConfigured()) {
+                $curl->get(SimpleDotEnv::getVar('GET_ALL_URL'));
+            } else {
+                throw new \Exception('Server is not configured');
+            }
+        } catch(\Exception $exception) {
+            dd($exception);
         }
     }
 

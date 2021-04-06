@@ -11,10 +11,17 @@ class ApiController
 {
     public function getAll(): ResponseInterface
     {
+        $routePath = SimpleDotEnv::getVar('GET_ALL_URL');
+
+        return $this->restResponse($routePath);
+    }
+
+    public function createOne(?array $postData = []): ResponseInterface
+    {
         $client = new Client();
 
-        $getAllUrl = SimpleDotEnv::getVar('GET_ALL_URL');
-        $result = $client->get($getAllUrl);
+        $routePath = SimpleDotEnv::getVar('CREATE_ONE_URL');
+        $result = $client->post($routePath, $postData);
 
         if($result instanceof ResponseInterface) {
             $response = $result;
@@ -25,12 +32,11 @@ class ApiController
         return $response;
     }
 
-    public function createOne(?array $postData = []): ResponseInterface
+    protected function restResponse($routePath): ResponseInterface
     {
         $client = new Client();
 
-        $createOneUrl = SimpleDotEnv::getVar('CREATE_ONE_URL');
-        $result = $client->post($createOneUrl, $postData);
+        $result = $client->get($routePath);
 
         if($result instanceof ResponseInterface) {
             $response = $result;
