@@ -38,36 +38,7 @@ class Curl implements TransportInterface
     {
         $this->checkConfiguration();
 
-        $uri = $this->buildUri($url);
-
-        $ch = curl_init($uri);
-        curl_setopt($ch, CURLOPT_URL, $uri);
-
-        //only POST
-        curl_setopt($ch, CURLOPT_POST, true);
-        //TODO: move it to `curlIt`
-
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $headers = [
-            'Content-Type' => 'application/json',
-
-            //fake Basic Auth
-            'Authorization' => sprintf(
-                "Basic %s",
-                base64_encode(sprintf("%s:%s",
-                    'username',
-                    'password',
-                ))
-            ),
-        ];
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-
-        //only POST
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-        //TODO: move it to `curlIt`
-
-        $response = curl_exec($ch);
-        curl_close($ch);
+        $response = $this->curlIt($url, 'POST', $data);
 
         return json_decode($response, true) ?? [];
     }
