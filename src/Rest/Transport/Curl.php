@@ -29,21 +29,17 @@ class Curl implements TransportInterface
     {
         $this->checkConfiguration();
 
-        $response = $this->curlIt($url, 'GET');
-
-        return json_decode($response, true) ?? [];
+        return $this->curlIt($url, 'GET');
     }
 
     public function post(string $url, ?array $data = []): array
     {
         $this->checkConfiguration();
 
-        $response = $this->curlIt($url, 'POST', $data);
-
-        return json_decode($response, true) ?? [];
+        return $this->curlIt($url, 'POST', $data);
     }
 
-    private function curlIt(string $url, string $method, ?array $data = []): bool|string
+    private function curlIt(string $url, string $method, ?array $data = []): array
     {
         $uri = $this->buildUri($url);
 
@@ -73,7 +69,7 @@ class Curl implements TransportInterface
         $response = curl_exec($ch);
         curl_close($ch);
 
-        return $response;
+        return json_decode($response, true) ?? [];
     }
 
     #[Pure]
