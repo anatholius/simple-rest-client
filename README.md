@@ -28,7 +28,7 @@ Steps to reach the guidelines and the status of their implementation:
 - [ ] (Release `step_2`) Designing a `RestClient` structure using `phpspec`
     - [x] Design the `DotEnv`
     - [x] Design the `Transport/Curl`
-    - [.] Design the `Client`
+    - [x] Design the `Client`
     - [ ] Design the `Response` structure
         - [ ] `success`
         - [ ] `data`
