@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use App\Rest\Client;
 use App\Rest\Response;
 use App\Rest\ResponseInterface;
@@ -22,11 +21,16 @@ abstract class ControllerAbstract
     {
         $client = new Client();
 
-        $result = match ($method) {
-            'GET' => $client->get($routePath),
-            'POST' => $client->post($routePath, $postData),
-            default => throw new HttpRequestException(sprintf('Nie obsługiwana metoda: %s', $method))
-        };
+        switch($method) {
+            case 'GET':
+                $result = $client->get($routePath);
+                break;
+            case 'POST':
+                $result = $client->post($routePath, $postData);
+                break;
+            default:
+                throw new HttpRequestException(sprintf('Nie obsługiwana metoda: %s', $method));
+        }
 
         if($result instanceof ResponseInterface) {
             $response = $result;

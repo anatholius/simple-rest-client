@@ -3,7 +3,6 @@
 namespace spec\App\Rest;
 
 use App\Rest\Client;
-use App\Rest\Response;
 use App\Rest\ResponseInterface;
 use App\SimpleDotEnv;
 use PhpSpec\ObjectBehavior;

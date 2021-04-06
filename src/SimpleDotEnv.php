@@ -6,7 +6,12 @@ class SimpleDotEnv
 {
     const DOTENV_PATH = __DIR__.'/../.env';
 
-    public static function getVars(bool $ignoreMissingDotenv = false): bool|array
+    /**
+     * @param bool $ignoreMissingDotenv
+     *
+     * @return bool|array
+     */
+    public static function getVars(bool $ignoreMissingDotenv = false)
     {
         return self::readEnv($ignoreMissingDotenv);
     }

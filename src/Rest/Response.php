@@ -2,8 +2,6 @@
 
 namespace App\Rest;
 
-use JetBrains\PhpStorm\ArrayShape;
-
 /**
  * @name Response Class
  *
@@ -22,12 +20,11 @@ class Response implements ResponseInterface
      *                               BTW `curl_getinfo` can return a `string`, but only if
      *                               `paramName` is given. In this case, it always is an array.
      */
-    public function __construct(string|array $response = [], ?array $info = [])
+    public function __construct($response = [], ?array $info = [])
     {
         $this->processOutput($response, $info);
     }
 
-    #[ArrayShape(['success' => "bool", 'data' => "array|null", 'error' => "array|null"])]
     public function getResult(): array
     {
         return [
@@ -37,7 +34,11 @@ class Response implements ResponseInterface
         ];
     }
 
-    private function processOutput(array|string $response, array $info)
+    /**
+     * @param array|string $response
+     * @param array        $info
+     */
+    private function processOutput($response, array $info)
     {
         $this->success = isset($info['http_code']) && $info['http_code'] >= 400 ? false : true;
         if($this->success) {
