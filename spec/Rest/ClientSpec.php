@@ -4,6 +4,7 @@ namespace spec\App\Rest;
 
 use App\Rest\Client;
 use App\Rest\Response;
+use App\Rest\ResponseInterface;
 use App\SimpleDotEnv;
 use PhpSpec\ObjectBehavior;
 
@@ -22,7 +23,7 @@ class ClientSpec extends ObjectBehavior
     function it_allows_to_GET_request()
     {
         $url = SimpleDotEnv::getVar('GET_ALL_URL');
-        $this->get($url)->shouldBeAnInstanceOf(Response::class);
+        $this->get($url)->shouldBeAnInstanceOf(ResponseInterface::class);
     }
 
     function it_should_not_throw_when_GET_prepared_request()
@@ -37,6 +38,6 @@ class ClientSpec extends ObjectBehavior
     {
         $url = SimpleDotEnv::getVar('CREATE_ONE_URL');
         $params = ['prop1' => 'value`'];
-        $this->post($url, $params)->shouldBeAnInstanceOf(Response::class);
+        $this->post($url, $params)->shouldBeAnInstanceOf(ResponseInterface::class);
     }
 }

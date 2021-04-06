@@ -35,8 +35,8 @@ Steps to reach the guidelines and the status of their implementation:
         - [x] `error`
         - [x] Use it in transport
 - [ ] (Release `step_3`) Testing client
-    - [ ] Design `ApiController`
-    - [ ] Design the `Request`
+    - [x] Design `ApiController`
+    - [?] Design the `Request` - is it needed? - not jet at all
         - [ ] `headers`
         - [ ] `type`
     - [ ] Tests with success and failed responses

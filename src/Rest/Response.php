@@ -9,7 +9,7 @@ use JetBrains\PhpStorm\ArrayShape;
  *
  * @author Anatol Derbisz <anatholius@gmail.com>
  */
-class Response
+class Response implements ResponseInterface
 {
     private bool $success = false;
     private ?array $data = null;
@@ -18,11 +18,11 @@ class Response
     /**
      * @param string|array $response - expected array - if there is json, it should be ute here
      *                               as array, because in here will be processed
-     * @param array        $info     - expected array as cURL it returns
+     * @param array|null   $info     - expected array as cURL it returns
      *                               BTW `curl_getinfo` can return a `string`, but only if
      *                               `paramName` is given. In this case, it always is an array.
      */
-    public function __construct(string|array $response, array $info)
+    public function __construct(string|array $response = [], ?array $info = [])
     {
         $this->processOutput($response, $info);
     }
