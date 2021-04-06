@@ -4,6 +4,7 @@ namespace spec\App\Rest\Transport;
 
 use App\Rest\Transport\Curl;
 use App\Rest\Transport\TransportInterface;
+use App\SimpleDotEnv;
 use PhpSpec\ObjectBehavior;
 
 class CurlSpec extends ObjectBehavior
@@ -16,13 +17,24 @@ class CurlSpec extends ObjectBehavior
 
     function it_should_allow_to_send_get_request()
     {
-        $url = '/api/endpoint';
+        $url = sprintf('%s%s',
+            SimpleDotEnv::getVar('BASE_URL'),
+            SimpleDotEnv::getVar('GET_ALL_URL')
+        );
         $this->get($url)->shouldBeArray();
     }
 
     function it_should_allow_to_send_post_request()
     {
-        $url = '/api/endpoint';
+        $url = sprintf('%s%s',
+            SimpleDotEnv::getVar('BASE_URL'),
+            SimpleDotEnv::getVar('CREATE_ONE_URL')
+        );
         $this->post($url)->shouldBeArray();
+    }
+
+    function it_should_allow_to_check_server_configuration()
+    {
+        $this->isConfigured()->shouldBe(true);
     }
 }
