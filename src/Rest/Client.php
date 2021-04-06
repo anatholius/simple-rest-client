@@ -10,9 +10,9 @@ use App\SimpleDotEnv;
  */
 class Client
 {
-    public function __construct(string $transportName = 'curl')
+    public function __construct()
     {
-        $this->setTransport($transportName);
+        $this->setTransport(SimpleDotEnv::getVar('TRANSPORT_NAME'));
     }
 
     public function get(string $url): Response

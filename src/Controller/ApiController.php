@@ -11,7 +11,7 @@ class ApiController
 {
     public function getAll(): ResponseInterface
     {
-        $client = new Client(SimpleDotEnv::getVar('TRANSPORT_NAME'));
+        $client = new Client();
 
         $getAllUrl = SimpleDotEnv::getVar('GET_ALL_URL');
         $result = $client->get($getAllUrl);
@@ -27,7 +27,7 @@ class ApiController
 
     public function createOne(?array $postData = []): ResponseInterface
     {
-        $client = new Client(SimpleDotEnv::getVar('TRANSPORT_NAME'));
+        $client = new Client();
 
         $createOneUrl = SimpleDotEnv::getVar('CREATE_ONE_URL');
         $result = $client->post($createOneUrl, $postData);
