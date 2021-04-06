@@ -34,12 +34,9 @@ Steps to reach the guidelines and the status of their implementation:
         - [x] `data`
         - [x] `error`
         - [x] Use it in transport
-- [ ] (Release `step_3`) Testing client
+- [x] (Release `step_3`) Testing client
     - [x] Design `ApiController`
-    - [?] Design the `Request` - is it needed? - not jet at all
-        - [ ] `headers`
-        - [ ] `type`
-    - [ ] Tests with success and failed responses
+    - [x] Tests with success and failed responses
 - [ ] Complete the documentation:
     - [ ] `README` file
     - [ ] (optional) `docs` folder
@@ -52,6 +49,9 @@ Additionally:
   using `phpspec`
     - [ ] Design `Transport/Psr7`
     - [ ] Implement standard
+    - [ ] ❔ Design the `Request` - is it needed?
+        - [ ] `headers`
+        - [ ] `type`
     - [ ] Modify the `RestClient` structure to allow the selection of the
       transport pattern
 
