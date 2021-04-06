@@ -29,7 +29,7 @@ class Curl implements TransportInterface
     {
         $this->checkConfiguration();
 
-        $response = $this->curlIt($url);
+        $response = $this->curlIt($url, 'GET');
 
         return json_decode($response, true) ?? [];
     }
@@ -72,12 +72,18 @@ class Curl implements TransportInterface
         return json_decode($response, true) ?? [];
     }
 
-    private function curlIt(string $url): bool|string
+    private function curlIt(string $url, string $method): bool|string
     {
         $uri = $this->buildUri($url);
 
         $ch = curl_init($uri);
         curl_setopt($ch, CURLOPT_URL, $uri);
+
+        if($method === 'POST') {
+            //only POST
+            curl_setopt($ch, CURLOPT_POST, true);
+        }
+
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $headers = [
             'Content-Type' => 'application/json',
@@ -113,7 +119,7 @@ class Curl implements TransportInterface
                 // there's tested GET method - just if it's working
                 $url = SimpleDotEnv::getVar('GET_ALL_URL');
 
-                $this->curlIt($url);
+                $this->curlIt($url, 'GET');
                 //if there is no exceptions -> everything is okay 🙂
             } else {
                 throw new \Exception('Server is not configured');
