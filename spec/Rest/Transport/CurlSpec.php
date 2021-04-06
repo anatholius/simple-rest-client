@@ -13,4 +13,10 @@ class CurlSpec extends ObjectBehavior
         $this->shouldHaveType(Curl::class);
         $this->shouldBeAnInstanceOf(TransportInterface::class);
     }
+
+    function it_should_allow_to_send_get_request()
+    {
+        $url = '/api/endpoint';
+        $this->get($url)->shouldBeArray();
+    }
 }
