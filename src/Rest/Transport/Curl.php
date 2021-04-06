@@ -44,7 +44,7 @@ class Curl implements TransportInterface
 
     private function curlIt(string $url, string $method, array $data = []): array
     {
-        $this->uri = $this->buildUri($url);
+        $this->prepare($url, $data);
 
         $ch = curl_init($this->uri);
         curl_setopt($ch, CURLOPT_URL, $this->uri);
@@ -59,12 +59,8 @@ class Curl implements TransportInterface
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
         if($method === 'POST') {
-            //only POST
-            $this->data = $data;
-
             $data = $this->buildData();
-
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $this->data);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         }
 
         //for debug in case of emergency
@@ -134,5 +130,27 @@ class Curl implements TransportInterface
     private function buildData(): string
     {
         return json_encode($this->data);
+    }
+
+    private function prepare(string $url, ?array $data = null): void
+    {
+        $this->uri = $this->buildUri($url);
+
+        $this->headers = [
+            'Accept' => 'application/json', //TODO: parameterize, if there is a choice someday
+            'Authorization' => sprintf(
+                "Basic %s",
+                base64_encode(sprintf("%s:%s",
+                    $this->auth['username'],
+                    $this->auth['password'],
+                ))
+            ),
+            'Content-Type' => 'application/json', //TODO: parameterize, if there is a choice someday
+        ];
+
+        //only POST
+        if($data !== null) {
+            $this->data = $data;
+        }
     }
 }
