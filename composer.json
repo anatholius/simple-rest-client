@@ -9,6 +9,8 @@
             "email": "anatholius@gmail.com"
         }
     ],
-    "require": {},
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "require-dev": {
+        "phpspec/phpspec": "^7.0"
+    }
 }
