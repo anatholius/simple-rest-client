@@ -58,4 +58,8 @@ class Client
             throw new \Exception('Server is not configured');
         }
     }
+
+    public function prepareRequest(): void
+    {
+    }
 }
