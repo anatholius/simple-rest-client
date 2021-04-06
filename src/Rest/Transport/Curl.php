@@ -14,6 +14,9 @@ class Curl implements TransportInterface
         'username' => null,
         'password' => null,
     ];
+    private string $uri;
+    private array $headers = [];
+    private array $data = [];
 
     public function __construct()
     {
@@ -39,12 +42,12 @@ class Curl implements TransportInterface
         return $this->curlIt($url, 'POST', $data);
     }
 
-    private function curlIt(string $url, string $method, ?array $data = []): array
+    private function curlIt(string $url, string $method, array $data = []): array
     {
-        $uri = $this->buildUri($url);
+        $this->uri = $this->buildUri($url);
 
-        $ch = curl_init($uri);
-        curl_setopt($ch, CURLOPT_URL, $uri);
+        $ch = curl_init($this->uri);
+        curl_setopt($ch, CURLOPT_URL, $this->uri);
 
         if($method === 'POST') {
             //only POST
@@ -52,14 +55,16 @@ class Curl implements TransportInterface
         }
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $headers = [
+        $this->headers = [
             'Content-Type' => 'application/json',
         ];
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
 
         if($method === 'POST') {
             //only POST
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+            $this->data = $data;
+            $data = json_encode($this->data);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $this->data);
         }
 
         //for debug in case of emergency
