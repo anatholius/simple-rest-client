@@ -21,9 +21,10 @@ design is complete, the specifications to be executed will be `PHPUnit` tests.
 
 Steps to reach the guidelines and the status of their implementation:
 
-- [ ] (Release `step_1`) Prepare project
-    - [ ] Write `README` to describe current situation
-    - [ ] Install dependencies
+- [x] (Release `step_1`) Prepare project
+    - [x] Write `README` to describe current situation
+    - [x] Install dependencies
+    - [x] Configure environment
 - [ ] (Release `step_2`) Designing a `RestClient` structure using `phpspec`
     - [ ] Design the `DotEnv`
     - [ ] Design the `Transport/Curl`
