@@ -16,6 +16,16 @@ class Client
 
     public function get(string $url): array
     {
+        // checking if we can send request using defined transport
+        if($this->transport->isConfigured()) {
+            $this->transport->get('/api/real-endpoint');
+            //if there is no exceptions -> everything is okay 🙂
+            //TODO: but wait, we don't have `isConfigured()` function inside transport class
+            //      ..well, BDD and spec 😀..
+        } else {
+            throw new \Exception('Server is not configured');
+        }
+
         return $this->transport->get($url);
     }
 
