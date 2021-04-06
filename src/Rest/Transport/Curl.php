@@ -10,6 +10,7 @@ use JetBrains\PhpStorm\Pure;
 class Curl implements TransportInterface
 {
     const BASE_URL = 'http://localhost';
+
     private array $auth = [
         'username' => null,
         'password' => null,
@@ -29,17 +30,7 @@ class Curl implements TransportInterface
     {
         $this->checkConfiguration();
 
-        $uri = sprintf('%s%s', self::BASE_URL, $url);
-
-        $ch = curl_init($uri);
-        curl_setopt($ch, CURLOPT_URL, $uri);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $headers = [
-            'Content-Type' => 'application/json',
-        ];
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        $response = curl_exec($ch);
-        curl_close($ch);
+        $response = $this->curlIt($url);
 
         return json_decode($response, true) ?? [];
     }
@@ -49,12 +40,14 @@ class Curl implements TransportInterface
         $this->checkConfiguration();
 
         $uri = sprintf('%s%s', self::BASE_URL, $url);
+        // TODO: $uri = $this->buildUri($url);
 
         $ch = curl_init($uri);
         curl_setopt($ch, CURLOPT_URL, $uri);
 
         //only POST
         curl_setopt($ch, CURLOPT_POST, true);
+        //TODO: move it to `curlIt`
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $headers = [
@@ -73,11 +66,29 @@ class Curl implements TransportInterface
 
         //only POST
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        //TODO: move it to `curlIt`
 
         $response = curl_exec($ch);
         curl_close($ch);
 
         return json_decode($response, true) ?? [];
+    }
+
+    private function curlIt(string $url): bool|string
+    {
+        $uri = sprintf('%s%s', self::BASE_URL, $url);
+
+        $ch = curl_init($uri);
+        curl_setopt($ch, CURLOPT_URL, $uri);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $headers = [
+            'Content-Type' => 'application/json',
+        ];
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        return $response;
     }
 
     #[Pure]
