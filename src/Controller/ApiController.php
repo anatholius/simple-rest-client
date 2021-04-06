@@ -9,7 +9,7 @@ use App\SimpleDotEnv;
 
 class ApiController
 {
-    public function getAll(): Response
+    public function getAll(): ResponseInterface
     {
         $client = new Client();
         $client->setTransport('curl');
@@ -26,16 +26,19 @@ class ApiController
         return $response;
     }
 
-    public function createOne(): Response
+    public function createOne(?array $postData = []): ResponseInterface
     {
         $client = new Client();
         $client->setTransport('curl');
 
-        // TODO: write logic here
+        $createOneUrl = SimpleDotEnv::getVar('CREATE_ONE_URL');
+        $result = $client->post($createOneUrl, $postData);
 
-        $response = new Response();
-
-        // TODO: do what you need with $response
+        if($result instanceof ResponseInterface) {
+            $response = $result;
+        } else {
+            $response = new Response($result);
+        }
 
         return $response;
     }
