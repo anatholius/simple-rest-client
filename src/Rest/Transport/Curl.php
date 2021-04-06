@@ -2,6 +2,7 @@
 
 namespace App\Rest\Transport;
 
+use App\SimpleDotEnv;
 use JetBrains\PhpStorm\Pure;
 
 /**
@@ -9,8 +10,6 @@ use JetBrains\PhpStorm\Pure;
  */
 class Curl implements TransportInterface
 {
-    const BASE_URL = 'http://localhost';
-
     private array $auth = [
         'username' => null,
         'password' => null,
@@ -19,7 +18,7 @@ class Curl implements TransportInterface
     public function __construct()
     {
         $this->server = [
-            'baseUrl' => self::BASE_URL,
+            'baseUrl' => SimpleDotEnv::getVar('BASE_URL'),
         ];
 
         $this->auth['username'] = 'username';
@@ -39,7 +38,7 @@ class Curl implements TransportInterface
     {
         $this->checkConfiguration();
 
-        $uri = sprintf('%s%s', self::BASE_URL, $url);
+        $uri = sprintf('%s%s', $this->server['baseUrl'], $url);
         // TODO: $uri = $this->buildUri($url);
 
         $ch = curl_init($uri);
@@ -76,7 +75,7 @@ class Curl implements TransportInterface
 
     private function curlIt(string $url): bool|string
     {
-        $uri = sprintf('%s%s', self::BASE_URL, $url);
+        $uri = sprintf('%s%s', $this->server['baseUrl'], $url);
 
         $ch = curl_init($uri);
         curl_setopt($ch, CURLOPT_URL, $uri);
@@ -112,7 +111,10 @@ class Curl implements TransportInterface
         try {
             // checking if we can send request using defined transport
             if($this->isConfigured()) {
-                $this->get('/api/real-endpoint');
+                // there's tested GET method - just if it's working
+                $url = SimpleDotEnv::getVar('GET_ALL_URL');
+
+                $this->curlIt($url);
                 //if there is no exceptions -> everything is okay 🙂
             } else {
                 throw new \Exception('Server is not configured');
