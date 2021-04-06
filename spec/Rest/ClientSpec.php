@@ -11,4 +11,10 @@ class ClientSpec extends ObjectBehavior
     {
         $this->shouldHaveType(Client::class);
     }
+
+    function it_should_allow_to_GET_request()
+    {
+        $url = '/api/endpoint';
+        $this->get($url)->shouldBeArray();
+    }
 }
