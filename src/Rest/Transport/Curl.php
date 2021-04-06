@@ -2,9 +2,28 @@
 
 namespace App\Rest\Transport;
 
+use JetBrains\PhpStorm\Pure;
+
+/**
+ * @property string[] server
+ */
 class Curl implements TransportInterface
 {
     const BASE_URL = 'http://localhost';
+    private array $auth = [
+        'username' => null,
+        'password' => null,
+    ];
+
+    public function __construct()
+    {
+        $this->server = [
+            'baseUrl' => self::BASE_URL,
+        ];
+
+        $this->auth['username'] = 'username';
+        $this->auth['password'] = 'password';
+    }
 
     public function get(string $url): array
     {
@@ -55,5 +74,20 @@ class Curl implements TransportInterface
         curl_close($ch);
 
         return json_decode($response, true) ?? [];
+    }
+
+    #[Pure]
+    public function isConfigured(): bool
+    {
+        return property_exists($this, 'server')
+            && is_array($this->server)
+            && isset($this->server['baseUrl'])
+            && is_string($this->server['baseUrl'])
+            && property_exists($this, 'auth')
+            && is_array($this->auth)
+            && isset($this->auth['username'])
+            && $this->auth['username'] !== null
+            && isset($this->auth['password'])
+            && $this->auth['password'] !== null;
     }
 }

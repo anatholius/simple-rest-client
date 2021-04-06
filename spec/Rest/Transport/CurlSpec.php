@@ -25,4 +25,9 @@ class CurlSpec extends ObjectBehavior
         $url = '/api/endpoint';
         $this->post($url)->shouldBeArray();
     }
+
+    function it_should_allow_to_check_server_configuration()
+    {
+        $this->isConfigured()->shouldBe(true);
+    }
 }
