@@ -70,13 +70,7 @@ class Curl implements TransportInterface
         $response = curl_exec($ch);
         curl_close($ch);
 
-        if(isset($this->headers['Accept']) && $this->headers['Accept'] === 'application/json') {
-            $result = json_decode($response, true) ?? [];
-        } else {
-            $result = $response;
-        }
-
-        return $result;
+        return $this->parseResponse($response);
     }
 
     #[Pure]
@@ -158,5 +152,16 @@ class Curl implements TransportInterface
         if($data !== null) {
             $this->data = $data;
         }
+    }
+
+    private function parseResponse(bool|string $response)
+    {
+        if(isset($this->headers['Accept']) && $this->headers['Accept'] === 'application/json') {
+            $result = json_decode($response, true) ?? [];
+        } else {
+            $result = $response;
+        }
+
+        return $result;
     }
 }
