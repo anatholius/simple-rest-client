@@ -3,6 +3,7 @@
 namespace App\Rest;
 
 use App\Rest\Transport\Curl;
+use App\SimpleDotEnv;
 
 /**
  * @property Curl transport
@@ -16,11 +17,15 @@ class Client
 
     public function get(string $url): array
     {
+        $this->checkConfiguration();
+
         return $this->transport->get($url);
     }
 
     public function post(string $url, array $params): array
     {
+        $this->checkConfiguration();
+
         return $this->transport->post($url, $params);
     }
 
@@ -41,6 +46,16 @@ class Client
         } catch(\Exception $exception) {
             var_dump($exception);
             die();
+        }
+    }
+
+    private function checkConfiguration()
+    {
+        $curl = new Curl();
+        if($curl->isConfigured()) {
+            $curl->get(SimpleDotEnv::getVar('GET_ALL_URL'));
+        } else {
+            throw new \Exception('Server is not configured');
         }
     }
 }

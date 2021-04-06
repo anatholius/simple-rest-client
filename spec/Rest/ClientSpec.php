@@ -13,6 +13,11 @@ class ClientSpec extends ObjectBehavior
         $this->shouldHaveType(Client::class);
     }
 
+    function it_should_throw_when_get_not_prepared_request()
+    {
+        $this->shouldThrow()->duringGet();
+    }
+
     function it_should_allow_to_GET_request()
     {
         $url = sprintf('%s%s',

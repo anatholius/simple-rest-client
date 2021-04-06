@@ -30,22 +30,20 @@ class Curl implements TransportInterface
 
     public function get(string $url): array
     {
-        $this->checkConfiguration();
+        $this->prepare($url);
 
-        return $this->curlIt($url, 'GET');
+        return $this->curlItWith('GET');
     }
 
     public function post(string $url, ?array $data = []): array
     {
-        $this->checkConfiguration();
-
-        return $this->curlIt($url, 'POST', $data);
-    }
-
-    private function curlIt(string $url, string $method, array $data = []): array
-    {
         $this->prepare($url, $data);
 
+        return $this->curlItWith('POST');
+    }
+
+    private function curlItWith(string $method): array
+    {
         $ch = curl_init($this->uri);
         curl_setopt($ch, CURLOPT_URL, $this->uri);
 
@@ -86,26 +84,6 @@ class Curl implements TransportInterface
             && $this->auth['username'] !== null
             && isset($this->auth['password'])
             && $this->auth['password'] !== null;
-    }
-
-    private function checkConfiguration(): void
-    {
-        // try..catch is for avoiding annoying underlines in PhpStorm
-        try {
-            // checking if we can send request using defined transport
-            if($this->isConfigured()) {
-                // there's tested GET method - just if it's working
-                $url = SimpleDotEnv::getVar('GET_ALL_URL');
-
-                $this->curlIt($url, 'GET');
-                //if there is no exceptions -> everything is okay 🙂
-            } else {
-                throw new \Exception('Server is not configured');
-            }
-        } catch(\Exception $exception) {
-            var_dump($exception);
-            die();
-        }
     }
 
     private function buildUri(string $url): string
