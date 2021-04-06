@@ -26,6 +26,14 @@ the `spec-BDD` principle. Also, I used here `RDD` (Readme Driven Design)
 methodology to direct the work on the basis of: _"Before you start doing
 something, write down what you want to do"_.
 
+**The example is written
+using ![APM](https://img.shields.io/badge/PHP-8.0.3-darkgreen).**
+
+However, for version ![APM](https://img.shields.io/badge/PHP-7.4-yellow),
+a [special branch](https://github.com/anatholius/simple-rest-client/tree/php74)
+has been created, if someone would like to use a ready-made for this version.
+There are mainly semantic changes there.
+
 ## Prerequisites
 
 What things you need to install the software and how to install them?
