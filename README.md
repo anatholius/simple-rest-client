@@ -1,9 +1,9 @@
-# Example `example/simple-rest-client`
+# Example `simple-rest-client`
 
 Example repository to create simple REST client with `GET` and `POST`
 using `phpspec` to design it.
 
-### Outline
+## Outline
 
 > Here's a short description of what I want to achieve.
 
@@ -45,7 +45,8 @@ Steps to reach the guidelines and the status of their implementation:
 Additionally:
 
 - [ ] (Release `step_4`) Designing an abstraction to handle `HTTP` communication
-  based on the `PSR-7` specification using `phpspec`
+  based on the [`PSR-7` specification](https://www.php-fig.org/psr/psr-7/)
+  using `phpspec`
     - [ ] Design `Transport/Psr7`
     - [ ] Implement standard
     - [ ] Modify the `RestClient` structure to allow the selection of the
