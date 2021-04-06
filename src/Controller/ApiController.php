@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Rest\Client;
 use App\Rest\Response;
+use App\Rest\ResponseInterface;
+use App\SimpleDotEnv;
 
 class ApiController
 {
@@ -12,11 +14,14 @@ class ApiController
         $client = new Client();
         $client->setTransport('curl');
 
-        // TODO: write logic here
+        $getAllUrl = SimpleDotEnv::getVar('GET_ALL_URL');
+        $result = $client->get($getAllUrl);
 
-        $response = new Response();
-
-        // TODO: do what you need with $response
+        if($result instanceof ResponseInterface) {
+            $response = $result;
+        } else {
+            $response = new Response($result);
+        }
 
         return $response;
     }
