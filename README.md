@@ -33,7 +33,7 @@ Steps to reach the guidelines and the status of their implementation:
         - [x] `success`
         - [x] `data`
         - [x] `error`
-        - [ ] Use it in transport
+        - [.] Use it in transport
 - [ ] (Release `step_3`) Testing client
     - [ ] Design `ApiController`
     - [ ] Design the `Request`

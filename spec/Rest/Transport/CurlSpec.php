@@ -2,6 +2,7 @@
 
 namespace spec\App\Rest\Transport;
 
+use App\Rest\Response;
 use App\Rest\Transport\Curl;
 use App\Rest\Transport\TransportInterface;
 use App\SimpleDotEnv;
@@ -21,7 +22,7 @@ class CurlSpec extends ObjectBehavior
             SimpleDotEnv::getVar('BASE_URL'),
             SimpleDotEnv::getVar('GET_ALL_URL')
         );
-        $this->get($url)->shouldBeArray();
+        $this->get($url)->shouldBeAnInstanceOf(Response::class);
     }
 
     function it_should_allow_to_send_post_request()
@@ -30,7 +31,7 @@ class CurlSpec extends ObjectBehavior
             SimpleDotEnv::getVar('BASE_URL'),
             SimpleDotEnv::getVar('CREATE_ONE_URL')
         );
-        $this->post($url)->shouldBeArray();
+        $this->post($url)->shouldBeAnInstanceOf(Response::class);
     }
 
     function it_should_allow_to_check_server_configuration()
