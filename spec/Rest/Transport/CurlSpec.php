@@ -19,4 +19,10 @@ class CurlSpec extends ObjectBehavior
         $url = '/api/endpoint';
         $this->get($url)->shouldBeArray();
     }
+
+    function it_should_allow_to_send_post_request()
+    {
+        $url = '/api/endpoint';
+        $this->post($url)->shouldBeArray();
+    }
 }
