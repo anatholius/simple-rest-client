@@ -12,7 +12,7 @@ class Client
 {
     public function __construct()
     {
-        $this->setTransport(SimpleDotEnv::getVar('TRANSPORT_NAME'));
+        $this->setTransport();
     }
 
     public function get(string $url): Response
@@ -30,12 +30,14 @@ class Client
     }
 
     /**
-     * (i) We can set transport from outside this class, when we have more than `cRUL`
+     * (i) We can set transport from outside this class, when we have more than only `cRUL`
      *
-     * @param string $transportName - nazwa transportu (BTW `Strategy` design pattern)
+     * @param string|null $transportName - nazwa transportu (BTW `Strategy` design pattern)
      */
-    public function setTransport(string $transportName): void
+    public function setTransport(?string $transportName = null): void
     {
+        $transportName = $transportName ?? SimpleDotEnv::getVar('TRANSPORT_NAME');
+
         // try..catch is for avoiding annoying underlines in PhpStorm
         try {
             // `PHP 8` semantics for catch in `7.4`
@@ -44,8 +46,7 @@ class Client
                 default => throw new \Exception('Unknown transport type')
             };
         } catch(\Exception $exception) {
-            var_dump($exception);
-            die();
+            dd($exception);
         }
     }
 
