@@ -17,4 +17,13 @@ class ClientSpec extends ObjectBehavior
         $url = '/api/endpoint';
         $this->get($url)->shouldBeArray();
     }
+
+    function it_should_allow_to_POST_request()
+    {
+        $url = '/api/endpoint';
+        $params = [
+            'prop1' => 'value`',
+        ];
+        $this->post($url, $params)->shouldBeArray();
+    }
 }

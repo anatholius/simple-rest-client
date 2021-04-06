@@ -12,4 +12,11 @@ class Client
 
         return $curl->get($url);
     }
+
+    public function post(string $url, array $params): array
+    {
+        $curl = new Curl();
+
+        return $curl->post($url, $params);
+    }
 }
