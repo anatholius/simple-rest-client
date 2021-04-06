@@ -72,7 +72,7 @@ class Curl implements TransportInterface
         return json_decode($response, true) ?? [];
     }
 
-    private function curlIt(string $url, string $method): bool|string
+    private function curlIt(string $url, string $method, ?array $data = []): bool|string
     {
         $uri = $this->buildUri($url);
 
@@ -89,6 +89,16 @@ class Curl implements TransportInterface
             'Content-Type' => 'application/json',
         ];
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        if($method === 'POST') {
+            //only POST
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        }
+
+        //for debug in case of emergency
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
         $response = curl_exec($ch);
         curl_close($ch);
 
