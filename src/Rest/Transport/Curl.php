@@ -79,7 +79,7 @@ class Curl implements TransportInterface
         if(isset($this->headers['Accept']) && $this->headers['Accept'] === 'application/json') {
             $result = new Response(json_decode($response, true), $info);
         } else {
-            $result = new Response($response, $info);
+            $result = new Response($response, $info) ?? [];
         }
 
         return $result;

@@ -28,9 +28,9 @@ class ClientSpec extends ObjectBehavior
     function it_should_not_throw_when_GET_prepared_request()
     {
         $this->prepareRequest();
-        $getUrl = SimpleDotEnv::getVar('GET_ALL_URL');
+        $url = SimpleDotEnv::getVar('GET_ALL_URL');
 
-        $this->shouldNotThrow()->duringGet($getUrl);
+        $this->shouldNotThrow()->duringGet($url);
     }
 
     function it_allows_to_POST_request()

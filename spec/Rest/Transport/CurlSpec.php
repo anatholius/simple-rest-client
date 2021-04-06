@@ -16,21 +16,15 @@ class CurlSpec extends ObjectBehavior
         $this->shouldBeAnInstanceOf(TransportInterface::class);
     }
 
-    function it_should_allow_to_send_get_request()
+    function it_should_allow_to_send_GET_request()
     {
-        $url = sprintf('%s%s',
-            SimpleDotEnv::getVar('BASE_URL'),
-            SimpleDotEnv::getVar('GET_ALL_URL')
-        );
+        $url = SimpleDotEnv::getVar('GET_ALL_URL');
         $this->get($url)->shouldBeAnInstanceOf(Response::class);
     }
 
     function it_should_allow_to_send_post_request()
     {
-        $url = sprintf('%s%s',
-            SimpleDotEnv::getVar('BASE_URL'),
-            SimpleDotEnv::getVar('CREATE_ONE_URL')
-        );
+        $url = SimpleDotEnv::getVar('CREATE_ONE_URL');
         $this->post($url)->shouldBeAnInstanceOf(Response::class);
     }
 
